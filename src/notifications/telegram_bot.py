@@ -65,23 +65,37 @@ class TelegramNotifier:
         now = datetime.now(SGT)
         hour = now.hour
 
-        # Determine target session context
+        # Determine target session context and lead horizon
         if trigger_type == "spike":
             header = "🚨 *URGENT SG HAZE ALERT: SPIKE DETECTED* 🚨"
             context_note = "A rapid haze elevation has been detected for the next 3 hours."
+            target_h = 1
         elif hour >= 18 or hour < 4:
             header = "🌅 *SG HAZE BRIEFING: TOMORROW MORNING TRAINING (~7:00 AM)*"
             context_note = "Night-before forecast for planning tomorrow's morning workout."
+            target_h = 10 if hour == 21 else (7 - hour) % 24
         else:
             header = "🌇 *SG HAZE BRIEFING: TODAY EVENING TRAINING (~6:00 PM)*"
             context_note = "Mid-day forecast for planning today's evening workout."
+            target_h = 6 if hour == 12 else (18 - hour) % 24
+
+        # Clamp target_h to [1, 12]
+        if target_h < 1 or target_h > 12:
+            target_h = 6
 
         # Pick forecast horizon for the training session
         timeline = forecast_data.get("hourly_timeline", [])
         current_readings = forecast_data.get("current_readings", {})
 
-        # Find target hour or default to +6h
-        target_step = timeline[min(5, len(timeline) - 1)] if timeline else {}
+        # Find target horizon step (matching target_h) or fallback
+        target_step = {}
+        for step in timeline:
+            if step.get("horizon_h") == target_h:
+                target_step = step
+                break
+        if not target_step and timeline:
+            target_step = timeline[min(target_h - 1, len(timeline) - 1)]
+
         target_display = target_step.get("target_time_display", "Upcoming Hours")
         reg_preds = target_step.get("regional_predictions", {})
 

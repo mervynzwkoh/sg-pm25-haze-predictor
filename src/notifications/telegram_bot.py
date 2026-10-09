@@ -9,7 +9,7 @@ from typing import Dict, Any, Optional
 import requests
 from pytz import timezone
 
-from src.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, SCHEDULED_HOURS_SGT, SPIKE_THRESHOLD_PM25
+from src.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, SCHEDULED_HOURS_SGT
 
 logger = logging.getLogger(__name__)
 SGT = timezone("Asia/Singapore")
@@ -60,32 +60,29 @@ class TelegramNotifier:
             logger.error(f"Exception sending Telegram message: {e}")
             return False
 
-    def format_forecast_message(self, forecast_data: Dict[str, Any], trigger_type: str = "scheduled") -> str:
-        """Construct a high-readability athlete briefing message."""
+    def format_forecast_message(self, forecast_data: Dict[str, Any]) -> str:
+        """Construct a high-readability athlete briefing message for morning or evening training."""
         now = datetime.now(SGT)
         hour = now.hour
 
         # Determine target session context and lead horizon
-        if trigger_type == "spike":
-            header = "🚨 *URGENT SG HAZE ALERT: SPIKE DETECTED* 🚨"
-            context_note = "A rapid haze elevation has been detected for the next 3 hours."
-            target_h = 1
-        elif hour >= 18 or hour < 4:
+        # 10:00 PM SGT (hour 22): Briefing for Tomorrow Morning Training (~7:00 AM, +9h lead)
+        # 2:00 PM SGT (hour 14): Briefing for Today Evening Training (~6:00 PM, +4h lead)
+        if hour >= 18 or hour < 4:
             header = "🌅 *SG HAZE BRIEFING: TOMORROW MORNING TRAINING (~7:00 AM)*"
             context_note = "Night-before forecast for planning tomorrow's morning workout."
-            target_h = 10 if hour == 21 else (7 - hour) % 24
+            target_h = 9 if hour == 22 else ((7 - hour) % 24 or 9)
         else:
             header = "🌇 *SG HAZE BRIEFING: TODAY EVENING TRAINING (~6:00 PM)*"
             context_note = "Mid-day forecast for planning today's evening workout."
-            target_h = 6 if hour == 12 else (18 - hour) % 24
+            target_h = 4 if hour == 14 else ((18 - hour) % 24 or 4)
 
         # Clamp target_h to [1, 12]
         if target_h < 1 or target_h > 12:
-            target_h = 6
+            target_h = 4
 
         # Pick forecast horizon for the training session
         timeline = forecast_data.get("hourly_timeline", [])
-        current_readings = forecast_data.get("current_readings", {})
 
         # Find target horizon step (matching target_h) or fallback
         target_step = {}
@@ -102,7 +99,7 @@ class TelegramNotifier:
         lines = [
             header,
             f"_{context_note}_\n",
-            f"⏱ *Forecast for:* {target_display}",
+            f"⏱ *Forecast for:* {target_display} (+{target_h}h lead)",
             f"📊 *Singapore Average:* {target_step.get('sg_average', 0)} µg/m³\n",
             "*Regional Outlook & Confidence:*",
         ]
@@ -137,25 +134,15 @@ class TelegramNotifier:
         return "\n".join(lines)
 
     def check_and_notify(self, forecast_data: Dict[str, Any], force: bool = False) -> bool:
-        """Evaluate if notification conditions are met and dispatch."""
+        """Evaluate if scheduled notification time is met (2:00 PM or 10:00 PM SGT) and dispatch."""
         now = datetime.now(SGT)
         hour = now.hour
 
         is_scheduled = hour in SCHEDULED_HOURS_SGT
 
-        # Check for immediate spike in next 3 hours
-        spike_detected = False
-        timeline = forecast_data.get("hourly_timeline", [])[:3]
-        for step in timeline:
-            if step.get("max_pm25", 0.0) > SPIKE_THRESHOLD_PM25:
-                # Check if current reading was previously normal to prevent duplicate spike flood
-                spike_detected = True
-                break
-
-        if force or is_scheduled or spike_detected:
-            trigger_type = "spike" if spike_detected and not is_scheduled else "scheduled"
-            msg = self.format_forecast_message(forecast_data, trigger_type=trigger_type)
+        if force or is_scheduled:
+            msg = self.format_forecast_message(forecast_data)
             return self.send_message(msg)
 
-        logger.info(f"Current hour {hour} SGT is not a scheduled notification window and no spike detected.")
+        logger.info(f"Current hour {hour} SGT is not a scheduled notification window ({SCHEDULED_HOURS_SGT}).")
         return False

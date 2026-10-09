@@ -7,8 +7,8 @@ import json
 from datetime import datetime
 from pathlib import Path
 import streamlit as st
+import streamlit.components.v1 as components
 import folium
-from streamlit_folium import st_folium
 import plotly.graph_objects as go
 import pandas as pd
 from pytz import timezone
@@ -37,29 +37,47 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .advisory-box {
-        padding: 18px;
+        padding: 14px 18px;
         border-radius: 8px;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         font-weight: 600;
-        margin-bottom: 20px;
-    }
-    .stSlider > div {
-        padding-top: 10px;
+        margin-bottom: 14px;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
-def load_forecast_data():
-    """Load latest forecast JSON or run pipeline if not present."""
-    if not LATEST_FORECAST_FILE.exists():
-        with st.spinner("Initializing forecast pipeline and fetching live Singapore data..."):
-            run_pipeline()
+def load_forecast_data(force_refresh: bool = False):
+    """Load latest forecast JSON or run fast pipeline if not present or stale."""
+    now = datetime.now(SGT)
+    need_refresh = force_refresh
 
-    if LATEST_FORECAST_FILE.exists():
-        with open(LATEST_FORECAST_FILE, "r") as f:
-            return json.load(f)
-    return None
+    if not need_refresh and LATEST_FORECAST_FILE.exists():
+        try:
+            with open(LATEST_FORECAST_FILE, "r") as f:
+                data = json.load(f)
+            gen_time = datetime.fromisoformat(data["generated_at"])
+            # Auto-refresh if data is older than 45 minutes or from an earlier hour
+            if (now - gen_time).total_seconds() > 2700:
+                need_refresh = True
+            else:
+                return data
+        except Exception:
+            need_refresh = True
+    else:
+        need_refresh = True
+
+    if need_refresh:
+        with st.spinner("Fetching latest live Singapore readings and running fast forecast..."):
+            try:
+                data = run_pipeline(force_retrain=False)
+                return data
+            except Exception as e:
+                if LATEST_FORECAST_FILE.exists():
+                    with open(LATEST_FORECAST_FILE, "r") as f:
+                        return json.load(f)
+                st.error(f"Error updating real-time forecast: {e}")
+                return None
 
 
 forecast_data = load_forecast_data()
@@ -71,8 +89,8 @@ with st.sidebar:
     st.markdown("**12-Hour PM2.5 Forecasts & Training Decision Support**")
 
     if st.button("🔄 Refresh Real-Time Data", use_container_width=True):
-        with st.spinner("Fetching latest data and running LightGBM inference..."):
-            run_pipeline()
+        with st.spinner("Fetching latest live data and generating fast forecast..."):
+            run_pipeline(force_retrain=False)
             st.rerun()
 
     st.markdown("---")
@@ -88,13 +106,14 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("### Training Windows")
-    st.markdown("• **Morning Session**: ~7:00 AM *(Decide by 9:00 PM)*\n• **Evening Session**: ~6:00 PM *(Decide by 12:00 PM)*")
+    st.markdown("• **Morning Session**: ~7:00 AM *(Alert at 10:00 PM SGT)*\n• **Evening Session**: ~6:00 PM *(Alert at 2:00 PM SGT)*")
 
 # Main Dashboard Content
 st.title("🇸🇬 Singapore PM2.5 Haze Forecast & Training Advisory")
 st.caption("🔬 **Experimental Research & Decision Support System** | Multi-horizon machine learning incorporating transboundary indicators.")
 
-st.info("⚠️ **Operational Decision Notice:** This platform serves as an experimental decision-support research tool. Predictions are physically motivated empirical approximations. In accordance with findings in our peer-reviewed report (`SCIENTIFIC_REPORT.md`), athletic training and public health decisions must always be guided by official National Environment Agency (NEA) real-time bulletins.")
+with st.expander("⚠️ Operational Decision Notice & Model Advisory Guidelines", expanded=False):
+    st.info("This platform serves as an experimental decision-support research tool. Predictions are physically motivated empirical approximations. Athletic training and public health decisions must always be guided by official National Environment Agency (NEA) real-time bulletins.")
 
 if not forecast_data:
     st.error("No forecast data available. Please click 'Refresh Real-Time Data' in the sidebar.")
@@ -122,124 +141,474 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Hourly Slider Scrubber
+# Extract timeline
 timeline = forecast_data.get("hourly_timeline", [])
-time_options = ["Now (Current)"] + [f"+{step['horizon_h']}h ({step['target_time_display']})" for step in timeline]
 
-selected_option = st.select_slider(
-    "⏱ Select Forecast Lead Time (1 to 12 Hours Ahead):",
-    options=time_options,
-    value=time_options[0]
-)
+# Interactive Map, Real-time Scrubber & Regional Predictions
+def render_interactive_dashboard(forecast_data):
+    current_readings = forecast_data.get("current_readings", {})
+    base_time = forecast_data.get("base_time_display", "")
+    if not base_time:
+        try:
+            gen_dt = datetime.fromisoformat(forecast_data.get("generated_at", "")).astimezone(SGT)
+            base_time = gen_dt.strftime("%I:%M %p")
+        except Exception:
+            base_time = datetime.now(SGT).strftime("%I:%M %p")
 
-selected_idx = time_options.index(selected_option)
+    regions_config = {
+        "central": {"name": "Central", "lat": 1.357, "lon": 103.826},
+        "north": {"name": "North", "lat": 1.418, "lon": 103.82},
+        "south": {"name": "South", "lat": 1.295, "lon": 103.82},
+        "east": {"name": "East", "lat": 1.357, "lon": 103.94},
+        "west": {"name": "West", "lat": 1.357, "lon": 103.7}
+    }
 
-# Extract selected horizon data
-is_now = (selected_idx == 0)
-current_readings = forecast_data.get("current_readings", {})
+    steps = [{
+        "horizon_h": 0,
+        "displayLabel": f"Now (Current Observed - {base_time})",
+        "headerLabel": f"Current Observed Readings ({base_time})",
+        "regions": {
+            r: {
+                "pm25": float(current_readings.get(r, 25.0)),
+                "conf": 100.0,
+                "low": float(current_readings.get(r, 25.0)),
+                "high": float(current_readings.get(r, 25.0))
+            } for r in regions_config
+        }
+    }]
 
-if is_now:
-    selected_time_label = "Current Observed Readings"
-    active_pm25 = current_readings
-    active_conf = {r: 100.0 for r in SG_REGIONS.keys()}
-    active_intervals = {r: (current_readings.get(r, 0), current_readings.get(r, 0)) for r in SG_REGIONS.keys()}
-else:
-    active_step = timeline[selected_idx - 1]
-    selected_time_label = f"Forecast for {active_step['target_time_display']} (+{active_step['horizon_h']}h ahead)"
-    active_pm25 = {r: active_step['regional_predictions'][r]['pm25_median'] for r in SG_REGIONS.keys()}
-    active_conf = {r: active_step['regional_predictions'][r]['confidence_score'] for r in SG_REGIONS.keys()}
-    active_intervals = {r: (active_step['regional_predictions'][r]['p10_lower'], active_step['regional_predictions'][r]['p90_upper']) for r in SG_REGIONS.keys()}
+    for s in timeline:
+        h = s["horizon_h"]
+        td = s["target_time_display"]
+        steps.append({
+            "horizon_h": h,
+            "displayLabel": f"+{h}h ({td})",
+            "headerLabel": f"Forecast for {td} (+{h}h ahead)",
+            "regions": {
+                r: {
+                    "pm25": float(s["regional_predictions"][r]["pm25_median"]),
+                    "conf": float(s["regional_predictions"][r]["confidence_score"]),
+                    "low": float(s["regional_predictions"][r]["p10_lower"]),
+                    "high": float(s["regional_predictions"][r]["p90_upper"])
+                } for r in regions_config
+            }
+        })
 
-# Map and Regional Summary Columns
-col_map, col_cards = st.columns([1.4, 1.0])
+    steps_json = json.dumps(steps)
+    regs_json = json.dumps(regions_config)
 
-with col_map:
-    st.subheader(f"🗺 Regional Map - {selected_time_label}")
+    html_code = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8" />
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <style>
+        * {{
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }}
+        body {{
+          background: transparent;
+          color: #f1f5f9;
+          padding: 4px;
+          overflow: hidden;
+        }}
+        /* Scrubber Container */
+        .scrubber-card {{
+          background: #141822;
+          border: 1px solid #283244;
+          border-radius: 8px;
+          padding: 10px 14px 8px 14px;
+          margin-bottom: 12px;
+        }}
+        .scrubber-header {{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+        }}
+        .scrubber-title {{
+          font-size: 0.92rem;
+          font-weight: 700;
+          color: #e2e8f0;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }}
+        .active-badge {{
+          background: rgba(14, 165, 233, 0.15);
+          color: #38bdf8;
+          border: 1px solid rgba(14, 165, 233, 0.4);
+          padding: 3px 10px;
+          border-radius: 12px;
+          font-size: 0.82rem;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+        }}
+        .slider-input {{
+          -webkit-appearance: none;
+          appearance: none;
+          width: 100%;
+          height: 6px;
+          border-radius: 3px;
+          background: #2a3447;
+          outline: none;
+          cursor: pointer;
+          margin-bottom: 6px;
+        }}
+        .slider-input::-webkit-slider-thumb {{
+          -webkit-appearance: none;
+          appearance: none;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #ef4444;
+          cursor: pointer;
+          box-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
+          border: 2px solid #ffffff;
+          transition: transform 0.1s ease;
+        }}
+        .slider-input::-webkit-slider-thumb:hover {{
+          transform: scale(1.15);
+        }}
+        .slider-input::-moz-range-thumb {{
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #ef4444;
+          cursor: pointer;
+          box-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
+          border: 2px solid #ffffff;
+        }}
+        .ticks-bar {{
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.72rem;
+          color: #64748b;
+          padding: 0 2px;
+        }}
+        .ticks-bar span.active-tick {{
+          color: #ef4444;
+          font-weight: 800;
+        }}
 
-    # Create Folium Map centered on Singapore
-    m = folium.Map(location=[1.3521, 103.8198], zoom_start=11, tiles="OpenStreetMap")
+        /* Main Viewport Side-by-Side */
+        .dashboard-row {{
+          display: grid;
+          grid-template-columns: 1.35fr 1fr;
+          gap: 12px;
+          height: 385px;
+        }}
+        .map-section {{
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }}
+        .panel-heading {{
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: #f8fafc;
+          margin-bottom: 6px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }}
+        #map {{
+          flex: 1;
+          border-radius: 8px;
+          border: 1px solid #283244;
+          overflow: hidden;
+        }}
 
-    for reg_key, reg_info in SG_REGIONS.items():
-        pm25 = active_pm25.get(reg_key, 25.0)
-        conf = active_conf.get(reg_key, 90.0)
-        low, high = active_intervals.get(reg_key, (pm25, pm25))
+        .cards-section {{
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }}
+        .cards-box {{
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 5px;
+          overflow-y: auto;
+        }}
+        .region-card {{
+          background: #181d28;
+          border: 1px solid #283347;
+          border-left: 5px solid #28a745;
+          border-radius: 6px;
+          padding: 6px 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 60px;
+          box-sizing: border-box;
+          transition: border-color 0.15s ease, background-color 0.15s ease;
+        }}
+        .region-card:hover {{
+          background: #1f2533;
+          border-color: #3b475d;
+        }}
+        .card-row-1 {{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }}
+        .card-region-title {{
+          font-weight: 700;
+          font-size: 0.92rem;
+          color: #ffffff !important;
+        }}
+        .card-badge {{
+          font-size: 0.68rem;
+          font-weight: 800;
+          padding: 2px 7px;
+          border-radius: 4px;
+          letter-spacing: 0.4px;
+          text-transform: uppercase;
+        }}
+        .card-row-2 {{
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }}
+        .card-pm-num {{
+          font-size: 1.42rem;
+          font-weight: 800;
+          color: #ffffff !important;
+          line-height: 1;
+        }}
+        .card-pm-unit {{
+          font-size: 0.76rem;
+          color: #94a3b8 !important;
+          margin-left: 3px;
+          font-weight: 500;
+        }}
+        .card-meta-box {{
+          text-align: right;
+          line-height: 1.25;
+        }}
+        .card-confidence {{
+          font-size: 0.76rem;
+          color: #f1f5f9 !important;
+          font-weight: 600;
+        }}
+        .card-interval {{
+          font-size: 0.71rem;
+          color: #94a3b8 !important;
+        }}
+      </style>
+    </head>
+    <body>
+      <div class="scrubber-card">
+        <div class="scrubber-header">
+          <span class="scrubber-title">⏱ Forecast Lead Time Scrubber (1 to 12 Hours Ahead):</span>
+          <span class="active-badge" id="scrubber-badge">Now</span>
+        </div>
+        <input type="range" id="scrubber-slider" min="0" max="12" value="0" step="1" class="slider-input" />
+        <div class="ticks-bar" id="ticks-container">
+          <span class="active-tick">Now</span>
+          <span>+1h</span>
+          <span>+2h</span>
+          <span>+3h</span>
+          <span>+4h</span>
+          <span>+5h</span>
+          <span>+6h</span>
+          <span>+7h</span>
+          <span>+8h</span>
+          <span>+9h</span>
+          <span>+10h</span>
+          <span>+11h</span>
+          <span>+12h</span>
+        </div>
+      </div>
 
-        # Determine color
-        if pm25 <= 55:
-            color = "#28a745"
-            status_text = "Safe"
-        elif pm25 <= 150:
-            color = "#ffc107"
-            status_text = "Caution"
-        else:
-            color = "#dc3545"
-            status_text = "Unhealthy"
+      <div class="dashboard-row">
+        <div class="map-section">
+          <div class="panel-heading" id="map-heading">🗺 Regional Map - Current Observed Readings</div>
+          <div id="map"></div>
+        </div>
 
-        # Circle zone
-        folium.Circle(
-            location=[reg_info["lat"], reg_info["lon"]],
-            radius=4500,
-            color=color,
-            fill=True,
-            fill_color=color,
-            fill_opacity=0.35,
-            popup=f"<b>{reg_info['name']} Region</b><br>PM2.5: {pm25:.0f} µg/m³ ({status_text})<br>Confidence: {conf:.0f}%<br>Range: [{low:.0f} - {high:.0f}]",
-            tooltip=f"{reg_info['name']}: {pm25:.0f} µg/m³ ({status_text})"
-        ).add_to(m)
+        <div class="cards-section">
+          <div class="panel-heading">📍 Regional Predictions & Confidence</div>
+          <div class="cards-box" id="cards-container">
+            <!-- Region Cards populated via JS -->
+          </div>
+        </div>
+      </div>
 
-        # Region marker pin
-        folium.Marker(
-            location=[reg_info["lat"], reg_info["lon"]],
-            icon=folium.DivIcon(
-                html=f"""
-                <div style="font-family: sans-serif; font-weight: bold; background: white; border: 2px solid {color}; border-radius: 6px; padding: 2px 6px; font-size: 11px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.3); white-space: nowrap;">
-                    {reg_info['name']}: {pm25:.0f}
-                </div>
-                """
-            )
-        ).add_to(m)
+      <script>
+        const steps = {steps_json};
+        const regionsConfig = {regs_json};
+        const regionOrder = ["central", "north", "south", "east", "west"];
 
-    st_folium(m, width=None, height=440)
+        function getBand(pm25) {{
+          if (pm25 <= 55) {{
+            return {{
+              color: "#28a745",
+              badge: "SAFE TO TRAIN",
+              badgeBg: "rgba(40, 167, 69, 0.18)",
+              status: "Safe"
+            }};
+          }} else if (pm25 <= 150) {{
+            return {{
+              color: "#ffc107",
+              badge: "REDUCE INTENSITY",
+              badgeBg: "rgba(255, 193, 7, 0.18)",
+              status: "Caution"
+            }};
+          }} else {{
+            return {{
+              color: "#dc3545",
+              badge: "MOVE INDOORS",
+              badgeBg: "rgba(220, 53, 69, 0.18)",
+              status: "Unhealthy"
+            }};
+          }}
+        }}
 
-with col_cards:
-    st.subheader("📍 Regional Predictions & Confidence")
-    for reg_key in ["central", "north", "south", "east", "west"]:
-        reg_name = SG_REGIONS[reg_key]["name"]
-        val = active_pm25.get(reg_key, 0.0)
-        conf = active_conf.get(reg_key, 0.0)
-        low, high = active_intervals.get(reg_key, (val, val))
-
-        if val <= 55:
-            badge_color = "#28a745"
-            badge_label = "SAFE TO TRAIN"
-        elif val <= 150:
-            badge_color = "#ffc107"
-            badge_label = "REDUCE INTENSITY"
-        else:
-            badge_color = "#dc3545"
-            badge_label = "MOVE INDOORS"
-
-        st.markdown(
-            f"""
-            <div style="background-color: white; border-left: 5px solid {badge_color}; border-radius: 6px; padding: 10px 14px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-weight: 700; font-size: 1.05rem;">{reg_name} Region</span>
-                    <span style="background-color: {badge_color}22; color: {badge_color}; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 4px;">{badge_label}</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 5px;">
-                    <div>
-                        <span style="font-size: 1.6rem; font-weight: 800; color: #212529;">{val:.0f}</span>
-                        <span style="font-size: 0.85rem; color: #6c757d;"> µg/m³</span>
-                    </div>
-                    <div style="text-align: right; font-size: 0.85rem; color: #495057;">
-                        <b>Confidence:</b> {conf:.0f}%<br>
-                        <span style="color: #6c757d; font-size: 0.78rem;">Interval: [{low:.0f} - {high:.0f}]</span>
-                    </div>
-                </div>
+        // Initialize Cards DOM
+        const cardsContainer = document.getElementById("cards-container");
+        regionOrder.forEach(reg => {{
+          const info = regionsConfig[reg];
+          const card = document.createElement("div");
+          card.className = "region-card";
+          card.id = "card-" + reg;
+          card.innerHTML = `
+            <div class="card-row-1">
+              <span class="card-region-title">${{info.name}} Region</span>
+              <span class="card-badge" id="badge-${{reg}}">-</span>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+            <div class="card-row-2">
+              <div>
+                <span class="card-pm-num" id="val-${{reg}}">--</span>
+                <span class="card-pm-unit">µg/m³</span>
+              </div>
+              <div class="card-meta-box">
+                <div class="card-confidence" id="conf-${{reg}}">Confidence: --%</div>
+                <div class="card-interval" id="interval-${{reg}}">Interval: [-- - --]</div>
+              </div>
+            </div>
+          `;
+          cardsContainer.appendChild(card);
+        }});
+
+        // Initialize Leaflet Map
+        const map = L.map("map", {{
+          center: [1.3521, 103.8198],
+          zoom: 11,
+          zoomControl: true,
+          attributionControl: false
+        }});
+
+        L.tileLayer("https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png", {{
+          maxZoom: 18
+        }}).addTo(map);
+
+        const circles = {{}};
+        const markers = {{}};
+
+        function createMarkerIcon(regKey, pm25, color) {{
+          const name = regionsConfig[regKey].name;
+          const html = `<div style="font-family: -apple-system, sans-serif; font-weight: 700; background: #ffffff; color: #0f172a; border: 2px solid ${{color}}; border-radius: 5px; padding: 2px 6px; font-size: 11px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.35); white-space: nowrap;">${{name}}: ${{Math.round(pm25)}}</div>`;
+          return L.divIcon({{ html: html, className: '', iconSize: [70, 22], iconAnchor: [35, 11] }});
+        }}
+
+        regionOrder.forEach(reg => {{
+          const info = regionsConfig[reg];
+          circles[reg] = L.circle([info.lat, info.lon], {{
+            radius: 4300,
+            color: "#28a745",
+            fillColor: "#28a745",
+            fillOpacity: 0.35,
+            weight: 2
+          }}).addTo(map);
+
+          markers[reg] = L.marker([info.lat, info.lon], {{
+            icon: createMarkerIcon(reg, 25, "#28a745")
+          }}).addTo(map);
+        }});
+
+        function updateView(idx) {{
+          const step = steps[idx];
+          if (!step) return;
+
+          document.getElementById("scrubber-badge").textContent = step.displayLabel;
+          document.getElementById("map-heading").textContent = "🗺 Regional Map - " + step.headerLabel;
+
+          const ticks = document.querySelectorAll("#ticks-container span");
+          ticks.forEach((tick, i) => {{
+            tick.classList.toggle("active-tick", i === idx);
+          }});
+
+          regionOrder.forEach(reg => {{
+            const regData = step.regions[reg];
+            const pm25 = regData.pm25;
+            const conf = regData.conf;
+            const low = regData.low;
+            const high = regData.high;
+            const band = getBand(pm25);
+
+            if (circles[reg]) {{
+              circles[reg].setStyle({{
+                color: band.color,
+                fillColor: band.color
+              }});
+              circles[reg].bindTooltip(
+                `<b>${{regionsConfig[reg].name}} Region</b><br>PM2.5: ${{Math.round(pm25)}} µg/m³ (${{band.status}})<br>Confidence: ${{Math.round(conf)}}%<br>Range: [${{Math.round(low)}} - ${{Math.round(high)}}]`,
+                {{ direction: 'top' }}
+              );
+            }}
+
+            if (markers[reg]) {{
+              markers[reg].setIcon(createMarkerIcon(reg, pm25, band.color));
+            }}
+
+            const card = document.getElementById("card-" + reg);
+            if (card) {{
+              card.style.borderLeftColor = band.color;
+            }}
+            const valEl = document.getElementById("val-" + reg);
+            if (valEl) valEl.textContent = Math.round(pm25);
+
+            const badgeEl = document.getElementById("badge-" + reg);
+            if (badgeEl) {{
+              badgeEl.textContent = band.badge;
+              badgeEl.style.color = band.color;
+              badgeEl.style.backgroundColor = band.badgeBg;
+              badgeEl.style.border = "1px solid " + band.color + "55";
+            }}
+
+            const confEl = document.getElementById("conf-" + reg);
+            if (confEl) confEl.textContent = "Confidence: " + Math.round(conf) + "%";
+
+            const intervalEl = document.getElementById("interval-" + reg);
+            if (intervalEl) intervalEl.textContent = "Interval: [" + Math.round(low) + " - " + Math.round(high) + "]";
+          }});
+        }}
+
+        // Live input event for instantaneous slider scrubbing
+        const slider = document.getElementById("scrubber-slider");
+        slider.addEventListener("input", function(e) {{
+          updateView(parseInt(e.target.value, 10));
+        }});
+
+        updateView(0);
+        setTimeout(() => {{ map.invalidateSize(); }}, 200);
+      </script>
+    </body>
+    </html>
+    """
+
+    components.html(html_code, height=485, scrolling=False)
+
+
+render_interactive_dashboard(forecast_data)
 
 # Trajectory Plot (Next 12 Hours)
 st.markdown("---")
@@ -354,4 +723,5 @@ with st.expander("🔬 Scientific Evaluation & Model Benchmarks (2022–2026 Sea
     if abl_csv.exists():
         st.subheader("Forecast Mean Absolute Error (MAE, µg/m³) across Horizons")
         adf = pd.read_csv(abl_csv)
-        st.dataframe(adf.style.format("{:.2f}"))
+        num_cols = adf.select_dtypes(include=["float", "float64"]).columns
+        st.dataframe(adf.style.format({c: "{:.2f}" for c in num_cols}))

@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 SGT = timezone("Asia/Singapore")
 
 
-def run_pipeline(force_notify: bool = False, fetch_historical_days: int = 21):
+def run_pipeline(force_notify: bool = False, fetch_historical_days: int = 21, force_retrain: bool = False):
     """Execute complete data pipeline, forecasting, and notification flow."""
     logger.info("=== Starting Singapore PM2.5 Forecasting Pipeline ===")
 
@@ -141,16 +141,22 @@ def run_pipeline(force_notify: bool = False, fetch_historical_days: int = 21):
     targets_test = {reg: {h: targets[reg][h].iloc[split_idx:] for h in targets[reg]} for reg in SG_REGIONS.keys()}
 
     # 6. Train Models
-    logger.info("Training LightGBM multi-horizon quantile models...")
-    forecaster = MultiHorizonForecaster()
-    forecaster.train(df_train, targets_train, feature_cols)
+    model_path = DATA_DIR / "models" / "lgbm_forecaster.pkl"
+    if model_path.exists() and not force_retrain:
+        logger.info(f"Loading cached pre-trained forecaster from {model_path}...")
+        forecaster = MultiHorizonForecaster.load(model_path)
+    else:
+        logger.info("Training LightGBM multi-horizon quantile models...")
+        forecaster = MultiHorizonForecaster()
+        forecaster.train(df_train, targets_train, feature_cols)
+        forecaster.save(model_path)
 
-    # 7. Evaluate Performance Across Horizons
-    eval_df = evaluate_forecast_horizons(forecaster, df_test, targets_test, df_test)
-    if not eval_df.empty:
-        summary_by_h = eval_df.groupby("horizon_h")[["adaptive_mae", "persistence_mae", "skill_gain_pct", "coverage_80pct"]].mean()
-        logger.info("\n=== Multi-Horizon Model Evaluation Summary ===")
-        print(summary_by_h.to_string())
+        # 7. Evaluate Performance Across Horizons
+        eval_df = evaluate_forecast_horizons(forecaster, df_test, targets_test, df_test)
+        if not eval_df.empty:
+            summary_by_h = eval_df.groupby("horizon_h")[["adaptive_mae", "persistence_mae", "skill_gain_pct", "coverage_80pct"]].mean()
+            logger.info("\n=== Multi-Horizon Model Evaluation Summary ===")
+            print(summary_by_h.to_string())
 
     # 8. Real-time Inference for Next 12 Hours
     logger.info("Generating 12-hour real-time forecasts across Singapore...")

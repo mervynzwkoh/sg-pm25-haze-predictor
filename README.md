@@ -43,8 +43,7 @@ Evaluated on an episodic multi-year seasonal archive spanning **2022 through 202
   - 1–12h timeline slider scrubber.
   - 12-hour trajectory charts and transparent scientific validation expander.
 - **Automated Telegram Bot Alerts**:
-  - Scheduled athlete briefings at **9:00 PM SGT** (morning workout prep) and **12:00 PM SGT** (evening workout prep).
-  - Urgent threshold alerts when $\text{PM}_{2.5}$ is forecast to exceed $55\,\mu\text{g/m}^3$.
+  - Scheduled athlete briefings at **10:00 PM SGT** (tomorrow morning workout prep, +9h lead) and **2:00 PM SGT** (today evening workout prep, +4h lead).
 - **Free & Keyless Pipeline**:
   - Relies on open APIs (`data.gov.sg`, Open-Meteo, CREA ground station datasets).
   - Optional Google Air Quality API key support with seamless automatic fallback.
@@ -78,7 +77,7 @@ Evaluated on an episodic multi-year seasonal archive spanning **2022 through 202
                ┌─────────────────────┴─────────────────────┐
                ▼                                           ▼
        [Streamlit Web App]                     [Telegram Bot Notifier]
-       (Interactive Map & Slider)              (9pm / 12pm SGT & Spike Alerts)
+       (Interactive Map & Slider)              (10pm / 2pm SGT Briefings)
 ```
 
 ---

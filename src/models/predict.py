@@ -89,11 +89,14 @@ def generate_12h_forecast(
             "forecasts": [],
         }
 
+    base_time = ref_time.replace(minute=0, second=0, microsecond=0)
+    forecast_output["base_time_display"] = base_time.strftime("%I:%M %p")
+
     # Generate predictions for each horizon h=1..12
     max_forecast_across_sg = 0.0
 
     for h in FORECAST_HORIZONS:
-        forecast_timestamp = (ref_time + timedelta(hours=h)).replace(minute=0, second=0, microsecond=0)
+        forecast_timestamp = base_time + timedelta(hours=h)
         hour_summary = {
             "horizon_h": h,
             "target_time": forecast_timestamp.isoformat(),

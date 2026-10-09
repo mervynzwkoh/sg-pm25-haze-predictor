@@ -10,7 +10,7 @@ def test_telegram_message_formatting():
         "overall_advisory": "✅ Safe to Train: All regions forecast below 55 µg/m³.",
         "hourly_timeline": [
             {
-                "horizon_h": 6,
+                "horizon_h": 4,
                 "target_time_display": "06:00 PM",
                 "sg_average": 38.0,
                 "max_pm25": 44.0,
@@ -25,7 +25,7 @@ def test_telegram_message_formatting():
         ]
     }
 
-    msg = notifier.format_forecast_message(sample_forecast, trigger_type="scheduled")
+    msg = notifier.format_forecast_message(sample_forecast)
     assert "SG HAZE BRIEFING" in msg
     assert "Central" in msg
     assert "North" in msg
@@ -39,3 +39,9 @@ def test_telegram_unconfigured_safety():
     notifier = TelegramNotifier(token="", chat_id="")
     assert not notifier.is_configured
     assert notifier.send_message("Test message") is False
+
+
+def test_scheduled_hours_config():
+    from src.config import SCHEDULED_HOURS_SGT
+    assert SCHEDULED_HOURS_SGT == [14, 22]
+

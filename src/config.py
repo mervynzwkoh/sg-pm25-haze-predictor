@@ -88,5 +88,5 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
 # Scheduled Notification Times (Singapore Time, UTC+8)
-SCHEDULED_HOURS_SGT = [12, 21]  # 12:00 PM (for ~6pm training) and 9:00 PM (for ~7am morning training)
-SPIKE_THRESHOLD_PM25 = 55.0     # Alert if PM2.5 spikes above normal within 3 hours
+SCHEDULED_HOURS_SGT = [14, 22]  # 2:00 PM (for ~6pm evening training) and 10:00 PM (for ~7am morning training)
+

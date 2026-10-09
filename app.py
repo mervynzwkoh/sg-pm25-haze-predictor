@@ -689,39 +689,103 @@ with st.expander("🔬 Scientific Evaluation & Model Benchmarks (2022–2026 Sea
     The framework was evaluated on an episodic multi-year seasonal archive spanning **2022 through 2026** ($N = 14,976$ hourly observations) with an independent out-of-time holdout during the acute **October 1 – 9, 2026** transboundary haze surge ($216$ hours).
 
     **Key Findings from Manuscript ([SCIENTIFIC_REPORT.md](SCIENTIFIC_REPORT.md)):**
-    1. **Modest Incremental Gains:** Progressing from a local-only model (M0) to the full model with meteorology and transboundary advection (M3) yielded modest error reductions (mean MAE decreased from $18.26$ to $18.00\,\mu\text{g/m}^3$), but differences were generally not statistically significant (Diebold–Mariano $p > 0.05$).
+    1. **Modest Incremental Gains:** Progressing from a local-only model (M0) to the full model with meteorology and transboundary advection (M3) yielded modest error reductions (mean MAE decreased from $18.26$ to $18.00\,\mu\text{g/m}^3$), but differences were generally not statistically significant (Diebold–Mariano $p > 0.05$ across horizons).
     2. **Strong Baseline Competitiveness:** The full model was not consistently the best forecaster: **Diurnal Seasonal Climatology** achieved the lowest overall average MAE ($17.83\,\mu\text{g/m}^3$), while regularized linear autoregression (**Ridge AR**) outperformed the gradient-boosted ensemble at extended lead times ($h = 10\text{--}12$ hours).
-    3. **Hazard Event Precision–Recall Trade-off:** For 6–10h hazard detection ($\text{PM}_{2.5} > 55\,\mu\text{g/m}^3$, $N = 5,200$ cases), the full model achieved $63.04\%$ recall and $83.07\%$ precision, trading hit rate for lower false alarms ($16.93\%$ FAR) compared to persistence ($71.22\%$ recall, $22.92\%$ FAR) and climatology ($74.45\%$ recall, $21.68\%$ FAR).
-    4. **Conformal Coverage Limitations:** Conformalized Quantile Regression (CQR) nominal $80\%$ intervals achieved empirical coverage of only $51.1\%\text{--}65.6\%$ on the test surge due to non-stationary distribution shift, with errors expanding to $39.23\,\mu\text{g/m}^3$ during severe haze ($> 100\,\mu\text{g/m}^3$).
+    3. **Conformal Coverage Limitations:** Conformalized Quantile Regression (CQR) nominal $80\%$ intervals achieved empirical coverage of only $51.1\%\text{--}65.6\%$ on the test surge due to non-stationary distribution shift, with errors expanding to $39.23\,\mu\text{g/m}^3$ during severe haze ($> 100\,\mu\text{g/m}^3$).
     """)
 
-    col_v1, col_v2 = st.columns(2)
     rep_dir = Path("data/reports")
+
+    # Publication Figures
+    col_v1, col_v2 = st.columns(2)
     abl_img = rep_dir / "ablation_and_baselines_comparison.png"
-    haz_img = rep_dir / "hazard_detection_contingency_comparison.png"
+    actual_img = rep_dir / "actual_vs_forecast_october_surge.png"
+    if not actual_img.exists():
+        actual_img = rep_dir / "models_vs_actual_october_surge.png"
 
     if abl_img.exists():
         with col_v1:
             st.image(str(abl_img), caption="Figure 1: Mean Absolute Error (MAE) Across 1–12h Horizons (Baselines vs Ablations)")
 
-    if haz_img.exists():
+    if actual_img.exists():
         with col_v2:
-            st.image(str(haz_img), caption="Figure 2: Contingency & Precision-Recall Metrics for 6–10h Hazardous Event Detection")
+            st.image(str(actual_img), caption="Figure 2: M3 Forecast vs Actual Ground Truth with 80% Uncertainty Band (October 2026 Surge)")
 
-    # Display tables if available
-    haz_csv = rep_dir / "hazard_event_detection_6_10h.csv"
-    if haz_csv.exists():
-        st.subheader("6–10h Hazardous Event Detection Performance (PM2.5 > 55 µg/m³, N = 5,200 Cases)")
-        hdf = pd.read_csv(haz_csv)
-        st.dataframe(hdf.style.format({
-            "tp": "{:.0f}", "fp": "{:.0f}", "fn": "{:.0f}", "tn": "{:.0f}",
-            "recall_pct": "{:.2f}%", "precision_pct": "{:.2f}%",
-            "far_pct": "{:.2f}%", "csi_pct": "{:.2f}%"
-        }))
+    # Interactive Plot: Model Predictions vs Actual Ground Truth
+    surge_csv = rep_dir / "models_vs_actual_october_surge.csv"
+    if surge_csv.exists():
+        st.markdown("---")
+        st.subheader("📉 Interactive Trajectory: Proposed M3 Model vs Actual Ground Truth")
+        st.caption("Forecast tracking comparison between the proposed multi-horizon LightGBM model (M3, lead time h = 3 hours ahead) and actual ground truth observations during the acute October 1–9, 2026 haze surge, including the 80% uncertainty band [p10, p90].")
+
+        sdf = pd.read_csv(surge_csv)
+        sdf["timestamp"] = pd.to_datetime(sdf["timestamp"])
+
+        fig_comp = go.Figure()
+
+        # Actual Ground Truth
+        fig_comp.add_trace(go.Scatter(
+            x=sdf["timestamp"],
+            y=sdf["actual_pm25"],
+            mode="lines+markers",
+            name="Actual Ground Truth (Central SG)",
+            line=dict(color="#f8fafc", width=2.8),
+            marker=dict(size=4)
+        ))
+
+        # Proposed LightGBM M3
+        fig_comp.add_trace(go.Scatter(
+            x=sdf["timestamp"],
+            y=sdf["lgbm_m3_physics"],
+            mode="lines",
+            name="Proposed LightGBM M3 (+3h Ahead)",
+            line=dict(color="#3b82f6", width=2.4)
+        ))
+
+        # 80% Uncertainty Band
+        fig_comp.add_trace(go.Scatter(
+            x=pd.concat([sdf["timestamp"], sdf["timestamp"][::-1]]),
+            y=pd.concat([sdf["lgbm_p90"], sdf["lgbm_p10"][::-1]]),
+            fill="toself",
+            fillcolor="rgba(59, 130, 246, 0.20)",
+            line=dict(color="rgba(255,255,255,0)"),
+            hoverinfo="skip",
+            showlegend=True,
+            name="M3 80% Uncertainty Band [p10, p90]"
+        ))
+
+        # Threshold lines
+        fig_comp.add_hline(y=55, line_dash="dash", line_color="#f59e0b", annotation_text="Elevated (55 µg/m³)")
+        fig_comp.add_hline(y=150, line_dash="dash", line_color="#ef4444", annotation_text="Unhealthy (150 µg/m³)")
+
+        fig_comp.update_layout(
+            xaxis_title="Date & Time (October 2026 SGT)",
+            yaxis_title="PM2.5 Concentration (µg/m³)",
+            hovermode="x unified",
+            height=430,
+            margin=dict(l=30, r=30, t=30, b=40),
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        )
+        st.plotly_chart(fig_comp, use_container_width=True)
+
+    # Detailed Evaluation Results Benchmark Tables
+    st.markdown("---")
+    st.subheader("📊 Model Evaluation & Ablation Results across Forecast Horizons")
+
+    tab_abl, tab_val = st.tabs(["Ablation & Baselines MAE Benchmark", "Multi-Horizon Accuracy & Coverage Metrics"])
 
     abl_csv = rep_dir / "ablation_benchmark.csv"
     if abl_csv.exists():
-        st.subheader("Forecast Mean Absolute Error (MAE, µg/m³) across Horizons")
-        adf = pd.read_csv(abl_csv)
-        num_cols = adf.select_dtypes(include=["float", "float64"]).columns
-        st.dataframe(adf.style.format({c: "{:.2f}" for c in num_cols}))
+        with tab_abl:
+            st.markdown("**Mean Absolute Error (MAE, µg/m³) & Relative Skill Gain across 1–12h Lead Times:**")
+            adf = pd.read_csv(abl_csv)
+            num_cols = adf.select_dtypes(include=["float", "float64"]).columns
+            st.dataframe(adf.style.format({c: "{:.2f}" for c in num_cols}), use_container_width=True)
+
+    val_csv = rep_dir / "validation_summary.csv"
+    if val_csv.exists():
+        with tab_val:
+            st.markdown("**Comprehensive Validation Metrics (MAE, RMSE, MAPE, Skill Gain %, and 80% Prediction Interval Coverage):**")
+            vdf = pd.read_csv(val_csv)
+            v_num_cols = vdf.select_dtypes(include=["float", "float64"]).columns
+            st.dataframe(vdf.style.format({c: "{:.2f}" for c in v_num_cols}), use_container_width=True)

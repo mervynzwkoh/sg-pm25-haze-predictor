@@ -128,10 +128,7 @@ class TelegramNotifier:
         overall_advisory = forecast_data.get("overall_advisory", "")
         lines.append(f"\n🏃‍♂️ *Athletic Advisory:*\n{overall_advisory}")
 
-        # Add link to dashboard
-        lines.append("\n🌐 *Interactive Map & 12h Timeline:* Check repo / dashboard for live regional maps.")
-
-        return "\n".join(lines)
+        return "\n".join(lines).strip()
 
     def check_and_notify(self, forecast_data: Dict[str, Any], force: bool = False) -> bool:
         """Evaluate if scheduled notification time is met (2:00 PM or 10:00 PM SGT) and dispatch."""

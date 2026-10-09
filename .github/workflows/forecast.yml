@@ -37,8 +37,17 @@ jobs:
 
       - name: Commit & Push Updated Forecast Artifacts
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add data/latest_forecast.json data/raw/
-          git commit -m "Auto-update PM2.5 12h forecast [skip ci]" || echo "No changes to commit"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "Auto-update PM2.5 12h forecast [skip ci]"
+
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -1,0 +1,8 @@
+model,tp,fp,fn,tn,recall_pct,precision_pct,false_alarm_ratio_pct,critical_success_index_csi_pct
+persistence,1873,557,757,2013,71.22,77.08,22.92,58.77
+diurnal,1958,542,672,2028,74.45,78.32,21.68,61.73
+ridge_ar,1647,264,983,2306,62.62,86.19,13.81,56.91
+M0_local_only,1533,289,1097,2281,58.29,84.14,15.86,52.52
+M1_local_meteo,1638,322,992,2248,62.28,83.57,16.43,55.49
+M2_with_upstream,1646,323,984,2247,62.59,83.6,16.4,55.74
+M3_full_physics,1658,338,972,2232,63.04,83.07,16.93,55.86

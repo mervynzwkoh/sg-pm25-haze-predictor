@@ -1,0 +1,44 @@
+name: Hourly Singapore PM2.5 Haze Forecast & Alert Pipeline
+
+on:
+  schedule:
+    # Runs every hour at minute 0 UTC (Singapore Time UTC+8)
+    - cron: '0 * * * *'
+  workflow_dispatch:  # Allows manual triggers from GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute PM2.5 Ingestion & Forecasting Pipeline
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GOOGLE_AQI_API_KEY: ${{ secrets.GOOGLE_AQI_API_KEY }}
+        run: |
+          python -m src.pipeline
+
+      - name: Commit & Push Updated Forecast Artifacts
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/latest_forecast.json data/raw/
+          git commit -m "Auto-update PM2.5 12h forecast [skip ci]" || echo "No changes to commit"
+          git push

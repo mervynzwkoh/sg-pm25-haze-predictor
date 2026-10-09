@@ -1,0 +1,7 @@
+horizon_h,separate_regional_mae,dynamic_lags_mae,pooled_model_mae,dynamic_vs_fixed_gain_pct,pooled_vs_separate_gain_pct
+1,7.04,7.04,7.08,0.02,-0.63
+3,12.83,12.83,12.9,-0.02,-0.58
+6,17.84,17.84,18.06,0.0,-1.25
+8,21.32,21.33,21.64,-0.08,-1.52
+10,23.71,23.87,24.04,-0.69,-1.39
+12,25.12,25.22,25.55,-0.4,-1.71

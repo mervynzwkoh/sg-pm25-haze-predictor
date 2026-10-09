@@ -1,0 +1,422 @@
+date,city,pm25_ugm3,source
+d1,"Banjarbaru (Banjar Baru)",57.9,bmkg
+d7,"Banjarbaru (Banjar Baru)",50.3,bmkg
+d30,"Banjarbaru (Banjar Baru)",61.3,bmkg
+d1,"Batam (Batam)",94.2,bmkg
+d7,"Batam (Batam)",61.9,bmkg
+d30,"Batam (Batam)",50,bmkg
+d1,"Indrapuri (Aceh Besar)",8.2,bmkg
+d7,"Indrapuri (Aceh Besar)",8.6,bmkg
+d30,"Indrapuri (Aceh Besar)",14.4,bmkg
+d1,"Kota Jambi (Jambi)",312.8,bmkg
+d7,"Kota Jambi (Jambi)",211.6,bmkg
+d30,"Kota Jambi (Jambi)",144.6,bmkg
+d1,"Muaro Jambi (Jambi)",295.3,bmkg
+d7,"Muaro Jambi (Jambi)",200.1,bmkg
+d30,"Muaro Jambi (Jambi)",131.8,bmkg
+d1,"Kotabaru (Kota Baru)",23.3,bmkg
+d7,"Kotabaru (Kota Baru)",32.6,bmkg
+d30,"Kotabaru (Kota Baru)",28.4,bmkg
+d1,"Malang (Malang)",24.6,bmkg
+d7,"Malang (Malang)",32.2,bmkg
+d30,"Malang (Malang)",32.7,bmkg
+d1,"Kototabang (Agam)",60.4,bmkg
+d7,"Kototabang (Agam)",35.1,bmkg
+d30,"Kototabang (Agam)",28.7,bmkg
+d1,"Medan (Deli Serdang)",41.1,bmkg
+d7,"Medan (Deli Serdang)",45.8,bmkg
+d30,"Medan (Deli Serdang)",39.7,bmkg
+d1,"Maros (Maros)",36.8,bmkg
+d7,"Maros (Maros)",48.4,bmkg
+d30,"Maros (Maros)",38.3,bmkg
+d1,"Pesawaran (Pesawaran)",49.6,bmkg
+d7,"Pesawaran (Pesawaran)",54.2,bmkg
+d30,"Pesawaran (Pesawaran)",50.2,bmkg
+d1,"Bengkulu (Bengkulu)",43.1,bmkg
+d7,"Bengkulu (Bengkulu)",43.1,bmkg
+d30,"Bengkulu (Bengkulu)",35.8,bmkg
+d1,"Pekanbaru (Pekanbaru)",219.7,bmkg
+d7,"Pekanbaru (Pekanbaru)",126.3,bmkg
+d30,"Pekanbaru (Pekanbaru)",87.1,bmkg
+d1,"Pangkalanbun (Kotawaringin Barat)",409.2,bmkg
+d7,"Pangkalanbun (Kotawaringin Barat)",327.3,bmkg
+d30,"Pangkalanbun (Kotawaringin Barat)",189.1,bmkg
+d1,"Talang Betutu Palembang (Palembang)",351.6,bmkg
+d7,"Talang Betutu Palembang (Palembang)",349.3,bmkg
+d30,"Talang Betutu Palembang (Palembang)",184.7,bmkg
+d1,"Musi 2 Palembang (Palembang)",364.1,bmkg
+d7,"Musi 2 Palembang (Palembang)",361.4,bmkg
+d30,"Musi 2 Palembang (Palembang)",200.6,bmkg
+d1,"Lore Lindu (Poso)",32.2,bmkg
+d7,"Lore Lindu (Poso)",35.9,bmkg
+d30,"Lore Lindu (Poso)",28.1,bmkg
+d1,"Palangkaraya (Palangka Raya)",775.2,bmkg
+d7,"Palangkaraya (Palangka Raya)",510.1,bmkg
+d30,"Palangkaraya (Palangka Raya)",480.7,bmkg
+d1,"Mempawah (Sanggau)",210.7,bmkg
+d7,"Mempawah (Sanggau)",163.4,bmkg
+d30,"Mempawah (Sanggau)",191.3,bmkg
+d1,"Samarinda (Samarinda)",46.5,bmkg
+d7,"Samarinda (Samarinda)",57.2,bmkg
+d30,"Samarinda (Samarinda)",99,bmkg
+d1,"Semarang (Kota Semarang)",33.7,bmkg
+d7,"Semarang (Kota Semarang)",51.1,bmkg
+d30,"Semarang (Kota Semarang)",40,bmkg
+d1,"Kubu Raya (Kubu Raya)",223.6,bmkg
+d7,"Kubu Raya (Kubu Raya)",164.1,bmkg
+d30,"Kubu Raya (Kubu Raya)",234.4,bmkg
+d7,"Sorong (Kota Sorong)",78,bmkg
+d30,"Sorong (Kota Sorong)",52.1,bmkg
+d1,"Sintang (Sintang)",96.8,bmkg
+d7,"Sintang (Sintang)",102.6,bmkg
+d30,"Sintang (Sintang)",139.2,bmkg
+d1,"Tanjung Harapan (Bulungan)",60.1,bmkg
+d7,"Tanjung Harapan (Bulungan)",47.3,bmkg
+d30,"Tanjung Harapan (Bulungan)",42.6,bmkg
+d1,"Sleman (Sleman)",23,bmkg
+d7,"Sleman (Sleman)",30.8,bmkg
+d30,"Sleman (Sleman)",31.3,bmkg
+d1,"DKI16 Ancol (Jakarta Utara)",36.2,dlh
+d7,"DKI16 Ancol (Jakarta Utara)",46.2,dlh
+d30,"DKI16 Ancol (Jakarta Utara)",42.9,dlh
+d7,"DKI18 Lebak Bulus (Jakarta Selatan)",60.9,dlh
+d30,"DKI18 Lebak Bulus (Jakarta Selatan)",54.5,dlh
+d1,"DKI19 Pondok Rangon (Jakarta Timur)",86,dlh
+d7,"DKI19 Pondok Rangon (Jakarta Timur)",67.1,dlh
+d30,"DKI19 Pondok Rangon (Jakarta Timur)",61.4,dlh
+d1,"DKI20 Rusunawa Pesakih (Jakarta Barat)",52.1,dlh
+d7,"DKI20 Rusunawa Pesakih (Jakarta Barat)",55.7,dlh
+d30,"DKI20 Rusunawa Pesakih (Jakarta Barat)",49.4,dlh
+d1,"DKI95 Tebet Eco Park (Jakarta Selatan)",40.7,dlh
+d7,"DKI95 Tebet Eco Park (Jakarta Selatan)",54.6,dlh
+d30,"DKI95 Tebet Eco Park (Jakarta Selatan)",49.4,dlh
+d1,"DKI96 Taman Sungai Kendal (Jakarta Utara)",46.7,dlh
+d7,"DKI96 Taman Sungai Kendal (Jakarta Utara)",58.4,dlh
+d30,"DKI96 Taman Sungai Kendal (Jakarta Utara)",52.3,dlh
+d1,"Balikpapan Sepinggan (Balikpapan)",27.6,mefindo_24hr
+d7,"Balikpapan Sepinggan (Balikpapan)",31.9,mefindo_24hr
+d30,"Balikpapan Sepinggan (Balikpapan)",25.2,mefindo_24hr
+d1,"BALIKPAPAN BARU (Balikpapan)",32,mefindo_24hr
+d7,"BALIKPAPAN BARU (Balikpapan)",36.8,mefindo_24hr
+d30,"BALIKPAPAN BARU (Balikpapan)",29.8,mefindo_24hr
+d1,"Bengkulu Singaran Pati (Bengkulu)",42.5,mefindo_24hr
+d7,"Bengkulu Singaran Pati (Bengkulu)",46.1,mefindo_24hr
+d30,"Bengkulu Singaran Pati (Bengkulu)",34,mefindo_24hr
+d1,"DKI01 Bundaran HI (Jakarta Pusat)",51.7,dlh
+d7,"DKI01 Bundaran HI (Jakarta Pusat)",63.4,dlh
+d30,"DKI01 Bundaran HI (Jakarta Pusat)",54.9,dlh
+d1,"DKI02 Kelapa Gading (Jakarta Utara)",42.4,dlh
+d7,"DKI02 Kelapa Gading (Jakarta Utara)",50.1,dlh
+d30,"DKI02 Kelapa Gading (Jakarta Utara)",45,dlh
+d1,"DKI03 Jagakarsa (Jakarta Selatan)",54.9,dlh
+d7,"DKI03 Jagakarsa (Jakarta Selatan)",49.8,dlh
+d30,"DKI03 Jagakarsa (Jakarta Selatan)",45,dlh
+d1,"DKI04 Lubang Buaya (Jakarta Timur)",71.6,dlh
+d7,"DKI04 Lubang Buaya (Jakarta Timur)",64,dlh
+d30,"DKI04 Lubang Buaya (Jakarta Timur)",57.2,dlh
+d1,"DKI05 Kebun Jeruk (Jakarta Barat)",56.1,dlh
+d7,"DKI05 Kebun Jeruk (Jakarta Barat)",60.8,dlh
+d30,"DKI05 Kebun Jeruk (Jakarta Barat)",53.9,dlh
+d1,"DLH MEDAN 03 (Kota Medan)",30.4,mefindo_24hr
+d7,"DLH MEDAN 03 (Kota Medan)",43.8,mefindo_24hr
+d30,"DLH MEDAN 03 (Kota Medan)",37.3,mefindo_24hr
+d1,"Gorontalo Taman Kota (Kota Gorontalo)",5.6,mefindo_24hr
+d7,"Gorontalo Taman Kota (Kota Gorontalo)",5.9,mefindo_24hr
+d30,"Gorontalo Taman Kota (Kota Gorontalo)",5.9,mefindo_24hr
+d1,"Jakarta GBK (Jakarta Pusat)",16.2,mefindo_hourly
+d7,"Jakarta GBK (Jakarta Pusat)",19.8,mefindo_hourly
+d30,"Jakarta GBK (Jakarta Pusat)",19,mefindo_hourly
+d1,"Jambi Paal Lima (Jambi)",419.8,mefindo_hourly
+d7,"Jambi Paal Lima (Jambi)",275.6,mefindo_hourly
+d30,"Jambi Paal Lima (Jambi)",169.6,mefindo_hourly
+d1,"Kabupaten Aceh Besar (Aceh Besar)",21.6,mefindo_hourly
+d7,"Kabupaten Aceh Besar (Aceh Besar)",21.7,mefindo_hourly
+d30,"Kabupaten Aceh Besar (Aceh Besar)",21.1,mefindo_hourly
+d30,"Kabupaten Aceh Selatan (Aceh Selatan)",31.5,mefindo_24hr
+d1,"Kabupaten Aceh Tengah (Aceh Tengah)",49.5,mefindo_24hr
+d7,"Kabupaten Aceh Tengah (Aceh Tengah)",44.2,mefindo_24hr
+d30,"Kabupaten Aceh Tengah (Aceh Tengah)",26.3,mefindo_24hr
+d1,"Kabupaten Asahan Sidomukti (Asahan)",17.9,mefindo_hourly
+d7,"Kabupaten Asahan Sidomukti (Asahan)",14,mefindo_hourly
+d30,"Kabupaten Asahan Sidomukti (Asahan)",13.4,mefindo_hourly
+d7,"Kabupaten Badung Sempidi (Badung)",12.7,mefindo_24hr
+d30,"Kabupaten Badung Sempidi (Badung)",7.8,mefindo_24hr
+d1,"Kabupaten Banjar (Banjar Baru)",50,mefindo_24hr
+d7,"Kabupaten Banjar (Banjar Baru)",43.5,mefindo_24hr
+d30,"Kabupaten Banjar (Banjar Baru)",31.9,mefindo_24hr
+d1,"Kabupaten Barito Kuala (Barito Kuala)",351.5,mefindo_24hr
+d7,"Kabupaten Barito Kuala (Barito Kuala)",248.8,mefindo_24hr
+d30,"Kabupaten Barito Kuala (Barito Kuala)",281,mefindo_24hr
+d1,"Kabupaten Barito Selatan Sanggu (Barito Selatan)",657,mefindo_24hr
+d7,"Kabupaten Barito Selatan Sanggu (Barito Selatan)",595.3,mefindo_24hr
+d30,"Kabupaten Barito Selatan Sanggu (Barito Selatan)",565.8,mefindo_24hr
+d1,"Kabupaten Bekasi Sukamahi (Bekasi)",7.2,mefindo_hourly
+d7,"Kabupaten Bekasi Sukamahi (Bekasi)",9,mefindo_hourly
+d30,"Kabupaten Bekasi Sukamahi (Bekasi)",8,mefindo_hourly
+d1,"Kabupaten Bengkalis Sanggoro (Bengkalis)",193.5,mefindo_hourly
+d7,"Kabupaten Bengkalis Sanggoro (Bengkalis)",147.3,mefindo_hourly
+d30,"Kabupaten Bengkalis Sanggoro (Bengkalis)",109.9,mefindo_hourly
+d1,"Kabupaten Bogor Leuwiliang (Bogor)",25.8,mefindo_hourly
+d7,"Kabupaten Bogor Leuwiliang (Bogor)",26.1,mefindo_hourly
+d30,"Kabupaten Bogor Leuwiliang (Bogor)",27.3,mefindo_hourly
+d1,"Kabupaten Bojonegoro (Bojonegoro)",13.9,mefindo_hourly
+d7,"Kabupaten Bojonegoro (Bojonegoro)",18.3,mefindo_hourly
+d30,"Kabupaten Bojonegoro (Bojonegoro)",18.4,mefindo_hourly
+d1,"Kabupaten Hulu Sungai Selatan (Hulu Sungai Selatan)",65.6,mefindo_24hr
+d7,"Kabupaten Hulu Sungai Selatan (Hulu Sungai Selatan)",97.3,mefindo_24hr
+d30,"Kabupaten Hulu Sungai Selatan (Hulu Sungai Selatan)",164.9,mefindo_24hr
+d1,"Kabupaten Indramayu Margadadi (Indramayu)",26.5,mefindo_hourly
+d7,"Kabupaten Indramayu Margadadi (Indramayu)",26,mefindo_hourly
+d30,"Kabupaten Indramayu Margadadi (Indramayu)",24.1,mefindo_hourly
+d1,"Kabupaten Jombang Kepanjen (Jombang)",5.5,mefindo_hourly
+d7,"Kabupaten Jombang Kepanjen (Jombang)",7.6,mefindo_hourly
+d30,"Kabupaten Jombang Kepanjen (Jombang)",8.9,mefindo_hourly
+d1,"Kabupaten Kampar Bangkinang (Kampar)",462.8,mefindo_hourly
+d7,"Kabupaten Kampar Bangkinang (Kampar)",239.3,mefindo_hourly
+d30,"Kabupaten Kampar Bangkinang (Kampar)",122.2,mefindo_hourly
+d1,"Kabupaten Kapuas (Kapuas)",206.2,mefindo_hourly
+d7,"Kabupaten Kapuas (Kapuas)",181.3,mefindo_hourly
+d30,"Kabupaten Kapuas (Kapuas)",248.7,mefindo_hourly
+d1,"Kabupaten Kendal Tunggulrejo (Kendal)",29.9,mefindo_24hr
+d7,"Kabupaten Kendal Tunggulrejo (Kendal)",42.8,mefindo_24hr
+d30,"Kabupaten Kendal Tunggulrejo (Kendal)",36.6,mefindo_24hr
+d1,"Kabupaten Kubu Raya Kapuas (Kubu Raya)",77.2,mefindo_hourly
+d7,"Kabupaten Kubu Raya Kapuas (Kubu Raya)",49.7,mefindo_hourly
+d30,"Kabupaten Kubu Raya Kapuas (Kubu Raya)",121.5,mefindo_hourly
+d1,"Kabupaten Lahat (Lahat)",80.1,mefindo_24hr
+d7,"Kabupaten Lahat (Lahat)",80.7,mefindo_24hr
+d30,"Kabupaten Lahat (Lahat)",66.8,mefindo_24hr
+d30,"Kabupaten Lampung Selatan Way Urang (Lampung Selatan)",57.8,mefindo_hourly
+d1,"Kabupaten Mojokerto Mojosari (Mojokerto)",22.5,mefindo_hourly
+d7,"Kabupaten Mojokerto Mojosari (Mojokerto)",25.4,mefindo_hourly
+d30,"Kabupaten Mojokerto Mojosari (Mojokerto)",24.2,mefindo_hourly
+d1,"Kabupaten Muara Enim (Muara Enim)",26.8,mefindo_24hr
+d7,"Kabupaten Muara Enim (Muara Enim)",29.1,mefindo_24hr
+d30,"Kabupaten Muara Enim (Muara Enim)",24.9,mefindo_24hr
+d1,"Kabupaten Muaro Jambi (Muaro Jambi)",401.2,mefindo_hourly
+d7,"Kabupaten Muaro Jambi (Muaro Jambi)",344.7,mefindo_hourly
+d30,"Kabupaten Muaro Jambi (Muaro Jambi)",240.9,mefindo_hourly
+d1,"Kabupaten Musi Rawas (Musi Rawas)",171.7,mefindo_hourly
+d7,"Kabupaten Musi Rawas (Musi Rawas)",127.9,mefindo_hourly
+d30,"Kabupaten Musi Rawas (Musi Rawas)",101.3,mefindo_hourly
+d1,"Kabupaten Murung Raya (Murung Raya)",1019.5,mefindo_hourly
+d7,"Kabupaten Murung Raya (Murung Raya)",554.4,mefindo_hourly
+d30,"Kabupaten Murung Raya (Murung Raya)",463,mefindo_hourly
+d1,"Kabupaten Musi Banyuasin Serasan Jaya (Musi Banyuasin)",104.2,mefindo_hourly
+d7,"Kabupaten Musi Banyuasin Serasan Jaya (Musi Banyuasin)",105.3,mefindo_hourly
+d30,"Kabupaten Musi Banyuasin Serasan Jaya (Musi Banyuasin)",86.3,mefindo_hourly
+d1,"Kabupaten Ogan Ilir (Ogan Ilir)",126.1,mefindo_24hr
+d7,"Kabupaten Ogan Ilir (Ogan Ilir)",150.2,mefindo_24hr
+d30,"Kabupaten Ogan Ilir (Ogan Ilir)",119.9,mefindo_24hr
+d1,"Kabupaten Pasuruan Raci (Pasuruan)",11.7,mefindo_24hr
+d7,"Kabupaten Pasuruan Raci (Pasuruan)",12,mefindo_24hr
+d30,"Kabupaten Pasuruan Raci (Pasuruan)",11.6,mefindo_24hr
+d1,"Kabupaten Pelalawan  (Pelalawan)",90.5,mefindo_24hr
+d7,"Kabupaten Pelalawan  (Pelalawan)",31.6,mefindo_24hr
+d30,"Kabupaten Pelalawan  (Pelalawan)",55,mefindo_24hr
+d1,"Kabutapen Penajam Paser Utara Nipah Nipah (Penajam Paser Utara)",34.5,mefindo_hourly
+d7,"Kabutapen Penajam Paser Utara Nipah Nipah (Penajam Paser Utara)",48.1,mefindo_hourly
+d30,"Kabutapen Penajam Paser Utara Nipah Nipah (Penajam Paser Utara)",39.3,mefindo_hourly
+d1,"Kabupaten Purwakarta Purnawarman (Purwakarta)",17.6,mefindo_hourly
+d7,"Kabupaten Purwakarta Purnawarman (Purwakarta)",18.6,mefindo_hourly
+d30,"Kabupaten Purwakarta Purnawarman (Purwakarta)",18.1,mefindo_hourly
+d1,"Kabupaten Rembang Leteh (Rembang)",10.7,mefindo_hourly
+d7,"Kabupaten Rembang Leteh (Rembang)",14.3,mefindo_hourly
+d30,"Kabupaten Rembang Leteh (Rembang)",14.1,mefindo_hourly
+d1,"Kabupaten Rokan Hilir Bangko (Rokan Hilir)",116.8,mefindo_hourly
+d7,"Kabupaten Rokan Hilir Bangko (Rokan Hilir)",67,mefindo_hourly
+d30,"Kabupaten Rokan Hilir Bangko (Rokan Hilir)",50.6,mefindo_hourly
+d1,"Kabupaten Sambas Dalam Kaum (Sambas)",16.1,mefindo_24hr
+d7,"Kabupaten Sambas Dalam Kaum (Sambas)",14.9,mefindo_24hr
+d30,"Kabupaten Sambas Dalam Kaum (Sambas)",28.2,mefindo_24hr
+d1,"Siak (Siak)",142.7,mefindo_hourly
+d7,"Siak (Siak)",101.2,mefindo_hourly
+d30,"Siak (Siak)",71.5,mefindo_hourly
+d1,"Kabupaten Siak Bunga Raya (Siak)",303.3,mefindo_hourly
+d7,"Kabupaten Siak Bunga Raya (Siak)",207.3,mefindo_hourly
+d30,"Kabupaten Siak Bunga Raya (Siak)",128.9,mefindo_hourly
+d1,"Kabupaten Tangerang Tigaraksa (Tangerang)",38.4,mefindo_hourly
+d7,"Kabupaten Tangerang Tigaraksa (Tangerang)",47.4,mefindo_hourly
+d30,"Kabupaten Tangerang Tigaraksa (Tangerang)",46.4,mefindo_hourly
+d1,"Kabupaten Tanjabtim Muara Sabak (Tanjung Jabung T)",151.9,mefindo_hourly
+d7,"Kabupaten Tanjabtim Muara Sabak (Tanjung Jabung T)",131.5,mefindo_hourly
+d30,"Kabupaten Tanjabtim Muara Sabak (Tanjung Jabung T)",99.4,mefindo_hourly
+d1,"KBN Marunda Jakarta Utara (Jakarta Utara)",8.7,mefindo_24hr
+d7,"KBN Marunda Jakarta Utara (Jakarta Utara)",13,mefindo_24hr
+d30,"KBN Marunda Jakarta Utara (Jakarta Utara)",12,mefindo_24hr
+d1,"Kemayoran (Jakarta Pusat)",39.6,dlh
+d7,"Kemayoran (Jakarta Pusat)",48.9,dlh
+d30,"Kemayoran (Jakarta Pusat)",44.2,dlh
+d1,"PT Krakatau Sarana Properti (Cilegon)",10.8,mefindo_24hr
+d7,"PT Krakatau Sarana Properti (Cilegon)",16.7,mefindo_24hr
+d30,"PT Krakatau Sarana Properti (Cilegon)",15.2,mefindo_24hr
+d1,"Kota Bontang Tanjung Laut (Bontang)",26.2,mefindo_24hr
+d7,"Kota Bontang Tanjung Laut (Bontang)",34.4,mefindo_24hr
+d30,"Kota Bontang Tanjung Laut (Bontang)",34.2,mefindo_24hr
+d1,"Kota Cilegon Pulomerak (Cilegon)",33,mefindo_24hr
+d7,"Kota Cilegon Pulomerak (Cilegon)",42.1,mefindo_24hr
+d30,"Kota Cilegon Pulomerak (Cilegon)",35,mefindo_24hr
+d1,"Kota Madiun Taman (Kota Madiun)",29.2,mefindo_24hr
+d7,"Kota Madiun Taman (Kota Madiun)",40.3,mefindo_24hr
+d30,"Kota Madiun Taman (Kota Madiun)",42,mefindo_24hr
+d1,"Kota Mojokerto Magersari (Kota Mojokerto)",10.5,mefindo_hourly
+d7,"Kota Mojokerto Magersari (Kota Mojokerto)",11.5,mefindo_hourly
+d30,"Kota Mojokerto Magersari (Kota Mojokerto)",12.2,mefindo_hourly
+d1,"Kota Prabumulih (Prabumulih)",252.5,mefindo_24hr
+d7,"Kota Prabumulih (Prabumulih)",170,mefindo_24hr
+d30,"Kota Prabumulih (Prabumulih)",107.4,mefindo_24hr
+d1,"Kota Tarakan Pamusian (Tarakan)",44.3,mefindo_hourly
+d7,"Kota Tarakan Pamusian (Tarakan)",36.6,mefindo_hourly
+d30,"Kota Tarakan Pamusian (Tarakan)",34.8,mefindo_hourly
+d30,"Bandar Lampung Talang (Bandar Lampung)",30.5,mefindo_hourly
+d30,"Makassar Ujung Pandang (Makassar)",20.6,mefindo_24hr
+d1,"Manokwari Gn. Sowi (Manokwari)",14.2,mefindo_24hr
+d7,"Manokwari Gn. Sowi (Manokwari)",14.1,mefindo_24hr
+d30,"Manokwari Gn. Sowi (Manokwari)",14.1,mefindo_24hr
+d30,"Mataram Sekarbela (Mataram)",25.7,mefindo_24hr
+d1,"Mobile AQMS BPBD Kalteng - Palangkaraya (Palangka Raya)",72.8,mefindo_24hr
+d7,"Mobile AQMS BPBD Kalteng - Palangkaraya (Palangka Raya)",207.7,mefindo_24hr
+d30,"Mobile AQMS BPBD Kalteng - Palangkaraya (Palangka Raya)",221.1,mefindo_24hr
+d1,"Pangkalpinang Bukit Intan (Pangkalpinang)",2.9,mefindo_hourly
+d7,"Pangkalpinang Bukit Intan (Pangkalpinang)",3,mefindo_hourly
+d30,"Pangkalpinang Bukit Intan (Pangkalpinang)",3.8,mefindo_hourly
+d1,"Jayapura Abepura (Kota Jayapura)",19.1,mefindo_hourly
+d7,"Jayapura Abepura (Kota Jayapura)",17.2,mefindo_hourly
+d30,"Jayapura Abepura (Kota Jayapura)",13,mefindo_hourly
+d1,"Pekanbaru Tenayan Raya (Pekanbaru)",38,mefindo_24hr
+d7,"Pekanbaru Tenayan Raya (Pekanbaru)",113.9,mefindo_24hr
+d30,"Pekanbaru Tenayan Raya (Pekanbaru)",92.2,mefindo_24hr
+d1,"Pontianak Tenggara (Kota Pontianak)",275.2,mefindo_hourly
+d7,"Pontianak Tenggara (Kota Pontianak)",199.8,mefindo_hourly
+d30,"Pontianak Tenggara (Kota Pontianak)",287.1,mefindo_hourly
+d1,"Samarinda Taman Segiri (Samarinda)",47,mefindo_24hr
+d7,"Samarinda Taman Segiri (Samarinda)",23.9,mefindo_24hr
+d30,"Samarinda Taman Segiri (Samarinda)",28.2,mefindo_24hr
+d30,"Serang Sumurpecung (Kota Serang)",35.4,mefindo_24hr
+d1,"Surabaya Tandes (Surabaya)",32.1,mefindo_24hr
+d7,"Surabaya Tandes (Surabaya)",31.6,mefindo_24hr
+d30,"Surabaya Tandes (Surabaya)",28.8,mefindo_24hr
+d1,"Tangerang Benteng  Betawi (Kota Tangerang)",24,mefindo_24hr
+d7,"Tangerang Benteng  Betawi (Kota Tangerang)",26.8,mefindo_24hr
+d30,"Tangerang Benteng  Betawi (Kota Tangerang)",23.1,mefindo_24hr
+d1,"Tangerang Kali Pasir (Kota Tangerang)",14.7,mefindo_hourly
+d7,"Tangerang Kali Pasir (Kota Tangerang)",17.4,mefindo_hourly
+d30,"Tangerang Kali Pasir (Kota Tangerang)",15.4,mefindo_hourly
+d1,"Tangerang Karang Tengah (Kota Tangerang)",28.6,mefindo_hourly
+d7,"Tangerang Karang Tengah (Kota Tangerang)",33.3,mefindo_hourly
+d30,"Tangerang Karang Tengah (Kota Tangerang)",28.9,mefindo_hourly
+d7,"Tangerang Selatan Serpong (Tangerang Selatan)",72.8,mefindo_hourly
+d30,"Tangerang Selatan Serpong (Tangerang Selatan)",63.3,mefindo_hourly
+d30,"Banjar Baru Landasan Ulin (Banjar Baru)",61.5,mefindo_24hr
+d1,"Banjarmasin Kayu Tangi (Banjarmasin)",227.9,mefindo_24hr
+d7,"Banjarmasin Kayu Tangi (Banjarmasin)",400.1,mefindo_24hr
+d30,"Banjarmasin Kayu Tangi (Banjarmasin)",296.3,mefindo_24hr
+d1,"Bekasi Kayuringin (Kota Bekasi)",26.5,mefindo_24hr
+d7,"Bekasi Kayuringin (Kota Bekasi)",41,mefindo_24hr
+d30,"Bekasi Kayuringin (Kota Bekasi)",34.7,mefindo_24hr
+d1,"Kota Bogor Tanah Sereal (Kota Bogor)",926.9,mefindo_24hr
+d7,"Kota Bogor Tanah Sereal (Kota Bogor)",551.8,mefindo_24hr
+d30,"Kota Bogor Tanah Sereal (Kota Bogor)",551.8,mefindo_24hr
+d30,"DLH MEDAN 02 (Kota Medan)",4.3,mefindo_24hr
+d1,"Kabupaten Bengkayang Sebalo (Bengkayang)",49.5,mefindo_hourly
+d7,"Kabupaten Bengkayang Sebalo (Bengkayang)",26.8,mefindo_hourly
+d30,"Kabupaten Bengkayang Sebalo (Bengkayang)",54.1,mefindo_hourly
+d1,"Kabupaten Indragiri Hilir (Indragiri Hilir)",196.4,mefindo_hourly
+d7,"Kabupaten Indragiri Hilir (Indragiri Hilir)",170.3,mefindo_hourly
+d30,"Kabupaten Indragiri Hilir (Indragiri Hilir)",115.3,mefindo_hourly
+d1,"Kabupaten Kotawaringin Timur (Kotawaringin Timur)",844.4,mefindo_hourly
+d7,"Kabupaten Kotawaringin Timur (Kotawaringin Timur)",474.3,mefindo_hourly
+d30,"Kabupaten Kotawaringin Timur (Kotawaringin Timur)",447,mefindo_hourly
+d1,"Kabupaten Kutai Barat Sendawar (Kutai Barat)",388.3,mefindo_hourly
+d7,"Kabupaten Kutai Barat Sendawar (Kutai Barat)",290.2,mefindo_hourly
+d30,"Kabupaten Kutai Barat Sendawar (Kutai Barat)",196.1,mefindo_hourly
+d1,"Kabupaten Morowali (Morowali)",40.3,mefindo_hourly
+d7,"Kabupaten Morowali (Morowali)",70,mefindo_hourly
+d30,"Kabupaten Morowali (Morowali)",37.8,mefindo_hourly
+d1,"Kabupaten Nabire (Nabire)",119.2,mefindo_hourly
+d7,"Kabupaten Nabire (Nabire)",106.5,mefindo_hourly
+d30,"Kabupaten Nabire (Nabire)",93,mefindo_hourly
+d7,"Kabupaten Nagan Raya (Nagan Raya)",1.4,mefindo_hourly
+d30,"Kabupaten Nagan Raya (Nagan Raya)",1.5,mefindo_hourly
+d1,"Kabupaten OKU Selatan Pelangki (Ogan Komering Ulu Selatan)",29.7,mefindo_hourly
+d7,"Kabupaten OKU Selatan Pelangki (Ogan Komering Ulu Selatan)",30.1,mefindo_hourly
+d30,"Kabupaten OKU Selatan Pelangki (Ogan Komering Ulu Selatan)",21.1,mefindo_hourly
+d1,"Kabupaten Penukal Abab Lematang Ilir (Muara Enim)",337.6,mefindo_hourly
+d7,"Kabupaten Penukal Abab Lematang Ilir (Muara Enim)",261.1,mefindo_hourly
+d30,"Kabupaten Penukal Abab Lematang Ilir (Muara Enim)",169.1,mefindo_hourly
+d1,"Kabupaten Sekadau Sekadau Hilir (Sekadau)",51.7,mefindo_hourly
+d7,"Kabupaten Sekadau Sekadau Hilir (Sekadau)",50,mefindo_hourly
+d30,"Kabupaten Sekadau Sekadau Hilir (Sekadau)",87.3,mefindo_hourly
+d1,"Kabupaten Serang Binuang (Serang)",50.4,mefindo_hourly
+d7,"Kabupaten Serang Binuang (Serang)",50,mefindo_hourly
+d30,"Kabupaten Serang Binuang (Serang)",50,mefindo_hourly
+d1,"Kabupaten Sintang Baning Kota (Sintang)",52.5,mefindo_hourly
+d7,"Kabupaten Sintang Baning Kota (Sintang)",68.2,mefindo_hourly
+d30,"Kabupaten Sintang Baning Kota (Sintang)",110.4,mefindo_hourly
+d1,"Kabupaten Sukabumi Pelabuhanratu (Sukabumi)",44.7,mefindo_hourly
+d7,"Kabupaten Sukabumi Pelabuhanratu (Sukabumi)",44.5,mefindo_hourly
+d30,"Kabupaten Sukabumi Pelabuhanratu (Sukabumi)",44.5,mefindo_hourly
+d1,"Kabupaten Tabalong (Tabalong)",336.1,mefindo_hourly
+d7,"Kabupaten Tabalong (Tabalong)",327.2,mefindo_hourly
+d30,"Kabupaten Tabalong (Tabalong)",288.6,mefindo_hourly
+d1,"Kabupaten Tebo (Tebo)",386.1,mefindo_hourly
+d7,"Kabupaten Tebo (Tebo)",271.8,mefindo_hourly
+d30,"Kabupaten Tebo (Tebo)",156.6,mefindo_hourly
+d30,"Kabupaten Tuban (Tuban)",27,mefindo_hourly
+d1,"Kota Probolinggo Kedopok (Kota Probolinggo)",32.2,mefindo_hourly
+d7,"Kota Probolinggo Kedopok (Kota Probolinggo)",32.3,mefindo_hourly
+d30,"Kota Probolinggo Kedopok (Kota Probolinggo)",32.3,mefindo_hourly
+d1,"Muara Jawa Tengah KPIKN IKN (Kutai Kartanegara)",60.8,mefindo_hourly
+d7,"Muara Jawa Tengah KPIKN IKN (Kutai Kartanegara)",74.4,mefindo_hourly
+d30,"Muara Jawa Tengah KPIKN IKN (Kutai Kartanegara)",61.6,mefindo_hourly
+d1,"Palembang Bukit Kecil (Palembang)",418.4,mefindo_hourly
+d7,"Palembang Bukit Kecil (Palembang)",452.6,mefindo_hourly
+d30,"Palembang Bukit Kecil (Palembang)",229.9,mefindo_hourly
+d1,"Plaza Seremoni KIPP IKN (Penajam Paser Utara)",19.9,mefindo_hourly
+d7,"Plaza Seremoni KIPP IKN (Penajam Paser Utara)",31.5,mefindo_hourly
+d30,"Plaza Seremoni KIPP IKN (Penajam Paser Utara)",26.1,mefindo_hourly
+d1,"Sanipah KPIKN IKN (Kutai Kartanegara)",67.2,mefindo_hourly
+d7,"Sanipah KPIKN IKN (Kutai Kartanegara)",80.1,mefindo_hourly
+d30,"Sanipah KPIKN IKN (Kutai Kartanegara)",59.2,mefindo_hourly
+d1,"Tangerang Pasir Jaya (Kota Tangerang)",29.9,mefindo_hourly
+d7,"Tangerang Pasir Jaya (Kota Tangerang)",34.1,mefindo_hourly
+d30,"Tangerang Pasir Jaya (Kota Tangerang)",34.7,mefindo_hourly
+d1,"Ternate Marikurubu (Ternate)",9.2,mefindo_hourly
+d7,"Ternate Marikurubu (Ternate)",9.4,mefindo_hourly
+d30,"Ternate Marikurubu (Ternate)",8.9,mefindo_hourly
+d1,"Wonotirto KPIKN IKN (Kutai Kartanegara)",111.5,mefindo_hourly
+d7,"Wonotirto KPIKN IKN (Kutai Kartanegara)",115.6,mefindo_hourly
+d30,"Wonotirto KPIKN IKN (Kutai Kartanegara)",110.3,mefindo_hourly
+d1,"Kabupaten Bandung Barat Saguling (Bandung Barat)",23.1,mefindo_24hr
+d7,"Kabupaten Bandung Barat Saguling (Bandung Barat)",23.2,mefindo_24hr
+d30,"Kabupaten Bandung Barat Saguling (Bandung Barat)",23.8,mefindo_24hr
+d1,"Kabupaten Banyuwangi Mojopanggung (Banyuwangi)",6.3,mefindo_24hr
+d7,"Kabupaten Banyuwangi Mojopanggung (Banyuwangi)",7.1,mefindo_24hr
+d30,"Kabupaten Banyuwangi Mojopanggung (Banyuwangi)",9.2,mefindo_24hr
+d1,"Kabupaten Gunung Mas (Gunung Mas)",853.5,mefindo_24hr
+d7,"Kabupaten Gunung Mas (Gunung Mas)",437.5,mefindo_24hr
+d30,"Kabupaten Gunung Mas (Gunung Mas)",514.6,mefindo_24hr
+d1,"Kabupaten Katingan (Katingan)",583.3,mefindo_24hr
+d7,"Kabupaten Katingan (Katingan)",583.3,mefindo_24hr
+d30,"Kabupaten Katingan (Katingan)",368.9,mefindo_24hr
+d30,"Kabupaten Madiun Mejayan (Madiun)",28,mefindo_24hr
+d1,"Kabupaten Manggarai Barat Wae Kalamb (Manggarai Barat)",11.9,mefindo_24hr
+d7,"Kabupaten Manggarai Barat Wae Kalamb (Manggarai Barat)",11.9,mefindo_24hr
+d30,"Kabupaten Manggarai Barat Wae Kalamb (Manggarai Barat)",11.9,mefindo_24hr
+d1,"Kabupaten Sidoarjo Buduran (Sidoarjo)",31,mefindo_24hr
+d7,"Kabupaten Sidoarjo Buduran (Sidoarjo)",31,mefindo_24hr
+d30,"Kabupaten Sidoarjo Buduran (Sidoarjo)",31,mefindo_24hr
+d1,"Kota Pasuruan Petamanan (Kota Pasuruan)",50.7,mefindo_24hr
+d7,"Kota Pasuruan Petamanan (Kota Pasuruan)",50.6,mefindo_24hr
+d30,"Kota Pasuruan Petamanan (Kota Pasuruan)",49.1,mefindo_24hr
+d1,"Malang Taman Riau (Kota Malang)",6.9,mefindo_24hr
+d7,"Malang Taman Riau (Kota Malang)",10.6,mefindo_24hr
+d30,"Malang Taman Riau (Kota Malang)",11.6,mefindo_24hr
+d7,"Manado Wanea (Manado)",21.4,mefindo_24hr
+d30,"Manado Wanea (Manado)",19.4,mefindo_24hr
+d1,"Plaza Bhinneka KIPP IKN (Penajam Paser Utara)",34.2,mefindo_24hr
+d7,"Plaza Bhinneka KIPP IKN (Penajam Paser Utara)",44.2,mefindo_24hr
+d30,"Plaza Bhinneka KIPP IKN (Penajam Paser Utara)",40.4,mefindo_24hr
+d1,"Solo Manahan (Surakarta)",16.3,mefindo_24hr
+d7,"Solo Manahan (Surakarta)",19.6,mefindo_24hr
+d30,"Solo Manahan (Surakarta)",20.1,mefindo_24hr

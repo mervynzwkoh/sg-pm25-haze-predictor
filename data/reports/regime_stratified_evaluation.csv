@@ -1,0 +1,153 @@
+horizon_h,region,regime,sample_count,model_mae,persistence_mae,skill_gain_pct,cqr_coverage_pct
+1,north,Normal (<=55),144,5.16,5.35,3.41,50.0
+1,north,Pollution Onset,19,7.4,6.95,-6.55,57.9
+1,north,Post-Rainfall Washout,16,6.56,6.44,-1.86,50.0
+1,south,Normal (<=55),136,7.25,7.33,1.11,42.6
+1,south,Pollution Onset,26,9.43,8.48,-11.16,53.8
+1,south,Severe Haze (>100),14,9.56,8.07,-18.49,35.7
+1,south,Post-Rainfall Washout,16,6.81,7.12,4.45,37.5
+1,east,Normal (<=55),110,5.02,4.97,-1.0,43.6
+1,east,Pollution Onset,28,10.04,10.68,5.94,50.0
+1,east,Severe Haze (>100),20,11.02,11.55,4.62,60.0
+1,east,Post-Rainfall Washout,16,7.02,6.88,-2.08,50.0
+1,west,Normal (<=55),92,5.38,5.43,0.95,53.3
+1,west,Pollution Onset,32,10.72,11.09,3.41,62.5
+1,west,Severe Haze (>100),33,11.95,11.67,-2.41,48.5
+1,west,Post-Rainfall Washout,16,7.93,7.94,0.15,50.0
+1,central,Normal (<=55),67,5.4,5.15,-4.82,50.7
+1,central,Pollution Onset,42,8.92,8.64,-3.15,38.1
+1,central,Severe Haze (>100),39,11.37,10.82,-5.03,46.2
+1,central,Post-Rainfall Washout,16,7.05,6.62,-6.4,56.2
+2,north,Normal (<=55),143,7.18,7.57,5.22,61.5
+2,north,Pollution Onset,17,12.13,12.41,2.24,47.1
+2,north,Post-Rainfall Washout,16,9.49,9.94,4.47,56.2
+2,south,Normal (<=55),135,10.23,10.53,2.89,51.1
+2,south,Pollution Onset,26,15.03,13.99,-7.39,50.0
+2,south,Severe Haze (>100),14,17.71,11.36,-55.97,42.9
+2,south,Post-Rainfall Washout,16,9.46,8.25,-14.68,68.8
+2,east,Normal (<=55),109,7.3,7.29,-0.16,61.5
+2,east,Pollution Onset,28,12.94,11.61,-11.5,57.1
+2,east,Severe Haze (>100),20,19.41,16.7,-16.24,60.0
+2,east,Post-Rainfall Washout,16,10.3,7.25,-42.12,62.5
+2,west,Normal (<=55),91,7.65,7.62,-0.48,63.7
+2,west,Pollution Onset,33,15.52,16.48,5.84,75.8
+2,west,Severe Haze (>100),33,18.8,18.97,0.88,57.6
+2,west,Post-Rainfall Washout,16,9.46,9.38,-0.94,56.2
+2,central,Normal (<=55),66,8.42,8.02,-5.0,54.5
+2,central,Pollution Onset,42,16.13,13.0,-24.09,45.2
+2,central,Severe Haze (>100),39,19.97,15.05,-32.67,56.4
+2,central,Post-Rainfall Washout,16,15.26,9.38,-62.78,56.2
+3,north,Normal (<=55),142,8.05,8.73,7.77,61.3
+3,north,Pollution Onset,18,15.84,15.39,-2.91,61.1
+3,north,Post-Rainfall Washout,16,7.5,7.25,-3.41,68.8
+3,south,Normal (<=55),134,11.31,12.51,9.57,54.5
+3,south,Pollution Onset,25,18.88,17.41,-8.43,60.0
+3,south,Severe Haze (>100),14,29.13,16.0,-82.09,50.0
+3,south,Post-Rainfall Washout,16,11.11,9.19,-20.97,62.5
+3,east,Normal (<=55),108,7.13,8.04,11.25,72.2
+3,east,Pollution Onset,28,17.11,15.86,-7.87,60.7
+3,east,Severe Haze (>100),20,27.19,21.4,-27.05,70.0
+3,east,Post-Rainfall Washout,16,11.81,7.75,-52.39,75.0
+3,west,Normal (<=55),90,8.52,8.48,-0.49,71.1
+3,west,Pollution Onset,35,18.94,18.6,-1.81,60.0
+3,west,Severe Haze (>100),33,22.69,22.64,-0.23,51.5
+3,west,Post-Rainfall Washout,16,8.22,7.88,-4.36,68.8
+3,central,Normal (<=55),65,10.04,10.46,3.98,55.4
+3,central,Pollution Onset,42,20.69,15.67,-32.07,47.6
+3,central,Severe Haze (>100),39,25.96,18.03,-44.04,53.8
+3,central,Post-Rainfall Washout,16,15.45,10.69,-44.6,62.5
+4,north,Normal (<=55),141,8.41,9.31,9.68,73.8
+4,north,Pollution Onset,20,18.19,17.55,-3.63,60.0
+4,north,Post-Rainfall Washout,16,6.43,7.12,9.76,87.5
+4,south,Normal (<=55),133,12.5,14.05,11.02,58.6
+4,south,Pollution Onset,23,24.2,18.34,-31.98,60.9
+4,south,Severe Haze (>100),14,43.17,23.21,-85.96,42.9
+4,south,Post-Rainfall Washout,16,13.41,8.5,-57.75,75.0
+4,east,Normal (<=55),107,8.68,8.99,3.42,69.2
+4,east,Pollution Onset,29,22.04,16.29,-35.26,72.4
+4,east,Severe Haze (>100),20,35.86,26.4,-35.83,65.0
+4,east,Post-Rainfall Washout,16,13.68,6.31,-116.77,62.5
+4,west,Normal (<=55),89,8.82,9.04,2.47,82.0
+4,west,Pollution Onset,34,20.67,19.94,-3.67,64.7
+4,west,Severe Haze (>100),33,28.42,27.0,-5.24,51.5
+4,west,Post-Rainfall Washout,16,13.57,11.06,-22.67,68.8
+4,central,Normal (<=55),64,9.95,10.72,7.2,56.2
+4,central,Pollution Onset,41,27.12,17.8,-52.33,51.2
+4,central,Severe Haze (>100),39,34.43,21.51,-60.06,48.7
+4,central,Post-Rainfall Washout,16,19.03,14.31,-32.96,50.0
+6,north,Normal (<=55),139,10.33,11.71,11.79,81.3
+6,north,Pollution Onset,16,17.08,14.88,-14.85,68.8
+6,north,Post-Rainfall Washout,16,9.4,10.38,9.41,87.5
+6,south,Normal (<=55),131,14.23,15.95,10.74,63.4
+6,south,Pollution Onset,25,35.94,21.74,-65.27,56.0
+6,south,Severe Haze (>100),14,54.35,28.64,-89.74,50.0
+6,south,Post-Rainfall Washout,16,22.28,9.94,-124.2,68.8
+6,east,Normal (<=55),105,10.67,11.39,6.31,71.4
+6,east,Pollution Onset,30,28.56,23.64,-20.8,63.3
+6,east,Severe Haze (>100),20,49.74,36.1,-37.8,40.0
+6,east,Post-Rainfall Washout,16,14.78,7.94,-86.21,68.8
+6,west,Normal (<=55),87,9.93,9.89,-0.44,80.5
+6,west,Pollution Onset,33,28.48,26.7,-6.69,57.6
+6,west,Severe Haze (>100),33,35.68,33.67,-5.99,45.5
+6,west,Post-Rainfall Washout,16,22.2,19.06,-16.44,56.2
+6,central,Normal (<=55),62,13.24,13.26,0.14,59.7
+6,central,Pollution Onset,42,33.83,22.45,-50.67,50.0
+6,central,Severe Haze (>100),39,45.84,31.15,-47.13,35.9
+6,central,Post-Rainfall Washout,16,24.42,15.12,-61.44,62.5
+8,north,Normal (<=55),137,11.44,13.27,13.76,77.4
+8,north,Pollution Onset,17,20.68,13.34,-55.11,64.7
+8,north,Post-Rainfall Washout,16,10.41,9.0,-15.67,87.5
+8,south,Normal (<=55),129,15.66,17.48,10.43,62.0
+8,south,Pollution Onset,26,36.28,27.6,-31.46,50.0
+8,south,Severe Haze (>100),14,57.84,35.43,-63.25,35.7
+8,south,Post-Rainfall Washout,16,22.62,13.44,-68.36,68.8
+8,east,Normal (<=55),103,11.64,13.06,10.83,74.8
+8,east,Pollution Onset,27,31.78,26.5,-19.95,66.7
+8,east,Severe Haze (>100),20,55.28,45.3,-22.03,30.0
+8,east,Post-Rainfall Washout,16,17.48,13.38,-30.69,87.5
+8,west,Normal (<=55),85,10.74,10.42,-3.04,84.7
+8,west,Pollution Onset,36,31.11,29.82,-4.33,52.8
+8,west,Severe Haze (>100),33,44.52,42.03,-5.92,33.3
+8,west,Post-Rainfall Washout,16,26.09,21.38,-22.05,37.5
+8,central,Normal (<=55),60,13.81,14.13,2.25,61.7
+8,central,Pollution Onset,39,29.9,22.49,-32.96,59.0
+8,central,Severe Haze (>100),39,49.29,40.38,-22.06,28.2
+8,central,Post-Rainfall Washout,16,24.19,11.12,-117.4,68.8
+10,north,Normal (<=55),135,12.79,14.16,9.69,85.2
+10,north,Pollution Onset,17,27.19,17.88,-52.1,76.5
+10,north,Post-Rainfall Washout,16,13.47,8.94,-50.69,87.5
+10,south,Normal (<=55),127,16.95,18.04,6.02,61.4
+10,south,Pollution Onset,23,39.96,34.34,-16.35,47.8
+10,south,Severe Haze (>100),14,68.49,52.86,-29.58,7.1
+10,south,Post-Rainfall Washout,16,18.36,11.94,-53.76,68.8
+10,east,Normal (<=55),101,14.13,14.84,4.8,72.3
+10,east,Pollution Onset,28,32.29,30.9,-4.49,57.1
+10,east,Severe Haze (>100),20,58.96,50.35,-17.11,10.0
+10,east,Post-Rainfall Washout,16,19.07,16.12,-18.25,68.8
+10,west,Normal (<=55),83,11.74,11.71,-0.26,89.2
+10,west,Pollution Onset,32,34.0,33.71,-0.85,56.2
+10,west,Severe Haze (>100),33,51.78,47.42,-9.19,30.3
+10,west,Post-Rainfall Washout,16,22.7,16.62,-36.53,62.5
+10,central,Normal (<=55),58,13.76,15.22,9.64,67.2
+10,central,Pollution Onset,39,32.71,29.73,-10.04,41.0
+10,central,Severe Haze (>100),39,53.22,47.33,-12.43,25.6
+10,central,Post-Rainfall Washout,16,16.17,14.62,-10.58,81.2
+12,north,Normal (<=55),133,12.43,14.45,13.96,83.5
+12,north,Pollution Onset,13,37.81,21.57,-75.28,38.5
+12,north,Post-Rainfall Washout,16,10.49,9.06,-15.71,100.0
+12,south,Normal (<=55),125,16.01,17.89,10.48,66.4
+12,south,Pollution Onset,20,48.33,43.04,-12.27,35.0
+12,south,Severe Haze (>100),14,80.77,68.36,-18.15,0.0
+12,south,Post-Rainfall Washout,16,22.25,15.81,-40.69,75.0
+12,east,Normal (<=55),99,14.33,15.97,10.26,69.7
+12,east,Pollution Onset,26,32.44,30.17,-7.53,53.8
+12,east,Severe Haze (>100),20,67.13,54.0,-24.31,20.0
+12,east,Post-Rainfall Washout,16,19.06,13.56,-40.53,81.2
+12,west,Normal (<=55),81,12.8,12.06,-6.13,87.7
+12,west,Pollution Onset,32,35.15,34.44,-2.06,59.4
+12,west,Severe Haze (>100),33,57.77,53.52,-7.95,27.3
+12,west,Post-Rainfall Washout,16,23.6,16.06,-46.92,75.0
+12,central,Normal (<=55),56,11.52,13.68,15.79,67.9
+12,central,Pollution Onset,40,33.66,31.59,-6.55,47.5
+12,central,Severe Haze (>100),39,58.16,50.33,-15.54,33.3
+12,central,Post-Rainfall Washout,16,17.62,12.25,-43.84,75.0

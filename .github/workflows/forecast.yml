@@ -2,8 +2,8 @@ name: Hourly Singapore PM2.5 Haze Forecast & Alert Pipeline
 
 on:
   schedule:
-    # Runs every hour at minute 0 UTC (Singapore Time UTC+8)
-    - cron: '0 * * * *'
+    # Runs every hour at minute 17 UTC (Singapore Time UTC+8) to avoid peak queue delays
+    - cron: '17 * * * *'
   workflow_dispatch:  # Allows manual triggers from GitHub Actions UI
 
 permissions:
